@@ -19,7 +19,7 @@ FROM nginxinc/nginx-unprivileged
 COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 #### copy artifact build from the 'build environment'
-COPY --from=build-stage ./dist/out/hello-world /usr/share/nginx/html
+COPY --from=build-stage /app/dist/out/hello-world /usr/share/nginx/html
 
 
 #Copy default nginx configuration
