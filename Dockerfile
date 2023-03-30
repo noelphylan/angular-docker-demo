@@ -13,6 +13,7 @@ RUN npm run build -- --output-path=./dist/out --configuration $configuration
 #FROM nginxinc/nginx-unprivileged
 FROM nginx:stable
 
+
 # support running as arbitrary user which belogs to the root group
 #RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
 
@@ -47,4 +48,7 @@ COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 #COPY --from=build-stage /app/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080:8080
+
+USER 10001
+
 CMD ["nginx", "-g", "daemon off;"]
