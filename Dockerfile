@@ -19,8 +19,8 @@ COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
 RUN pwd
 
-COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
-#COPY --from=build-stage /app/nginx-custom.conf /etc/nginx/conf.d/default.conf
+#COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /app/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080:8080
 CMD ["nginx", "-g", "daemon off;"]
