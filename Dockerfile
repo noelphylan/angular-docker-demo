@@ -16,7 +16,7 @@ FROM nginxinc/nginx-unprivileged
 #COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
 #### copy nginx conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 #### copy artifact build from the 'build environment'
 COPY --from=build-stage ./dist/hello-world /usr/share/nginx/html
