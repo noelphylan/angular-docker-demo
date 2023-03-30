@@ -3,7 +3,7 @@ FROM node:18.15.0 as build-stage
 WORKDIR /app
 COPY package*.json /app/
 RUN npm install
-COPY ./ /app/
+COPY . .
 ARG configuration=production
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
@@ -13,14 +13,22 @@ RUN npm run build -- --output-path=./dist/out --configuration $configuration
 FROM nginxinc/nginx-unprivileged
 
 #Copy ci-dashboard-dist
-COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+#COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+
+#### copy nginx conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+#### copy artifact build from the 'build environment'
+COPY --from=build-stage ./dist/hello-world /usr/share/nginx/html
+
+
 #Copy default nginx configuration
 #COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 
-RUN pwd
+#RUN pwd
 
 #COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
-COPY --from=build-stage /app/nginx-custom.conf /etc/nginx/conf.d/default.conf
+#COPY --from=build-stage /app/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080:8080
 CMD ["nginx", "-g", "daemon off;"]
