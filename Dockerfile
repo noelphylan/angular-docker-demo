@@ -23,6 +23,8 @@ COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
 USER nginx
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
+RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
+    chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
 
 #Copy default nginx configuration
 #COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
