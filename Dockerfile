@@ -17,7 +17,7 @@ FROM nginx:stable
 #RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
 
 RUN chgrp -R 0 /var/cache/nginx /var/run /var/log/nginx && \
-    chmod -R 777 /var
+    chmod -R g=u /var
 
 # users are not allowed to listen on priviliged ports
 RUN sed -i.bak 's/listen\(.*\)80;/listen 8080;/' /etc/nginx/conf.d/default.conf
