@@ -44,6 +44,8 @@ RUN whoami
 #### copy nginx conf
 #USER root
 COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+RUN cat /etc/nginx/nginx.conf
+RUN cat /etc/nginx/conf.d/default.conf
 
 #### copy artifact build from the 'build environment'
 #USER nginx
