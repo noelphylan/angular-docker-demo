@@ -22,10 +22,10 @@ RUN whoami
 
 #RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
 
-RUN chgrp -R 0 /var/cache/nginx /var/run /var/log/nginx && \
-    chmod -R g=u /var
+#RUN chgrp -R 0 /var/cache/nginx /var/run /var/log/nginx && \
+#    chmod -R g=u /var
 
-
+RUN chmod 777 /etc/nginx/nginx.conf && chmod 777 /var/run && chmod 777 /etc/nginx/conf.d/default.conf
 
 
 # users are not allowed to listen on priviliged ports
