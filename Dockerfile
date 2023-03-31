@@ -22,7 +22,7 @@ RUN whoami
 
 #RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
 
-RUN chgrp -R 0 /var/cache/nginx /var/run /var/log/nginx && \
+RUN chgrp -R nginx /var/cache/nginx /var/run /var/log/nginx && \
     chmod -R g=u /var
 
 
