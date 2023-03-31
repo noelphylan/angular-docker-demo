@@ -11,12 +11,11 @@ RUN npm run build -- --output-path=./dist/out --configuration $configuration
 #FROM nginx:1.20
 # need to use a special nginx image because openshift does not allow containers to run with root privileges
 FROM nginxinc/nginx-unprivileged
-#FROM  rhscl/nginx-120-rhel7
 #FROM nginx:stable
 
 RUN groups
 RUN whoami
-RUN ls -al
+#RUN ls -al
 #RUN sudo apt-get update
 
 # support running as arbitrary user which belogs to the root group
@@ -31,8 +30,11 @@ RUN ls -al
 
 # users are not allowed to listen on priviliged ports
 RUN sed -i.bak 's/listen\(.*\)80;/listen 8080;/' /etc/nginx/conf.d/default.conf
+RUN cat /etc/nginx/conf.d/default.conf
+
 # comment user directive as master process is run as user in OpenShift anyhow
 RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
+RUN cat /etc/nginx/nginx.conf
 
 
 
@@ -58,6 +60,5 @@ COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
 EXPOSE 8080:8080
 
-USER 10001
 
 CMD ["nginx", "-g", "daemon off;"]
