@@ -16,7 +16,7 @@ FROM  rhscl/nginx-120-rhel7
 
 RUN groups
 RUN whoami
-RUN sudo apt-get update
+#RUN sudo apt-get update
 
 # support running as arbitrary user which belogs to the root group
 RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
