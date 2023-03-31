@@ -10,8 +10,8 @@ RUN npm run build -- --output-path=./dist/out --configuration $configuration
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 #FROM nginx:1.20
 # need to use a special nginx image because openshift does not allow containers to run with root privileges
-#FROM nginxinc/nginx-unprivileged
-FROM nginx:stable
+FROM nginxinc/nginx-unprivileged
+#FROM nginx:stable
 
 RUN groups
 RUN whoami
@@ -25,16 +25,16 @@ RUN whoami
 #RUN chgrp -R 0 /var/cache/nginx /var/run /var/log/nginx && \
 #    chmod -R g=u /var
 
-RUN chmod 777 /etc/nginx/nginx.conf && chmod 777 /var/run && chmod 777 /etc/nginx/conf.d/default.conf
+#RUN chmod 777 /etc/nginx/nginx.conf && chmod 777 /var/run && chmod 777 /etc/nginx/conf.d/default.conf
 
 
 # users are not allowed to listen on priviliged ports
-RUN sed -i.bak 's/listen\(.*\)80;/listen 8080;/' /etc/nginx/conf.d/default.conf
-RUN cat /etc/nginx/conf.d/default.conf
+#RUN sed -i.bak 's/listen\(.*\)80;/listen 8080;/' /etc/nginx/conf.d/default.conf
+#RUN cat /etc/nginx/conf.d/default.conf
 
 # comment user directive as master process is run as user in OpenShift anyhow
-RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
-RUN cat /etc/nginx/nginx.conf
+#RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
+#RUN cat /etc/nginx/nginx.conf
 
 
 
