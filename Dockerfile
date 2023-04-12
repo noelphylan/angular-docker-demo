@@ -10,8 +10,8 @@ RUN npm run build -- --output-path=./dist/out --configuration $configuration
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 #FROM nginx:1.20
 # need to use a special nginx image because openshift does not allow containers to run with root privileges
-FROM nginxinc/nginx-unprivileged
-#FROM nginx:stable
+#FROM nginxinc/nginx-unprivileged
+FROM nginx:latest
 
 RUN groups
 RUN whoami
